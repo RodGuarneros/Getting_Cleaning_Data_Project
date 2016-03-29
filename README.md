@@ -11,7 +11,7 @@ Here are the data for the project:
 
 https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 
-In regard to this source, I should create one R script called run_analysis.R that does the following.
+In regard to this source, I should create one R script called run_analysis.R that does the following steps. Let's describe how all of every script work and how they are connected here:
 
 1. Getting and merging the training and the test sets to create one data set.
 
@@ -62,5 +62,3 @@ In regard to this source, I should create one R script called run_analysis.R tha
     >- average <- average[, !(colnames(average) %in% c("subj", "activity"))]
     >- str(average)
     >- write.table(average, "average.txt", row.names = F)
-
-Let's describe how all of every script work and how they are connected here:

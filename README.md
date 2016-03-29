@@ -16,10 +16,17 @@ In regard to this source, I should create one R script called run_analysis.R tha
 1. Merges the training and the test sets to create one data set.
 
     In this step, I read the url file and create a zip file named "wearable.zip".
-    Then I unzip this file and analyze the structure of every data file.
+    Then I unzip this file and analyze the structure of every data file in the directory named "UCI HAR Dataset".
     Finally, I remove the original data file "weareable.zip" in order to optimize the space in the computer.
 
-3. Extracts only the measurements on the mean and standard deviation for each measurement.
+2. Extracts only the measurements on the mean and standard deviation for each measurement.
+ 
+    Having in mind that we have two sorts of tests and train (X and Y), we need to create four objects before to merge all in     a data base.
+    >- TestX <- read.table("X_test.txt")
+    >- TrainX <- read.table("X_train.txt")
+    >- TestY <- read.table("y_test.txt")
+    >- TrainY <- read.table("y_train.txt")
+
 3. Uses descriptive activity names to name the activities in the data set
 4. Appropriately labels the data set with descriptive variable names.
 5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.

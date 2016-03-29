@@ -33,9 +33,34 @@ In regard to this source, I should create one R script called run_analysis.R tha
     
     Before getting measures such as mean and standard deviation we need to consider the features described by the file           "features.txt" using the grep () function
     
+    >- features <- read.table("features.txt")
+    >- meansd <- grep("-mean\\(\\)|-std\\(\\)", features[, 2])
+    >- meansdX <- MergeX[, meansd]
 
-3. Uses descriptive activity names to name the activities in the data set
-4. Appropriately labels the data set with descriptive variable names.
-5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+3. Cleaning the column names, these are applied to the x data frame.
+
+    >- names(meansdX) <- features[meansd, 2]
+    >- names(meansdX) <- tolower(names(meansdX))
+    >- names(meansdX) <- gsub("\\(|\\)", "", names(meansdX)) # in order to get better names
+
+4.  Looking for the name of every activity and tolower() those names.
+
+    >- Activities <- read.table("activity_labels.txt")
+    >- Activities <- tolower(as.character(Activities[,2]))
+    >- MergeY =  Activities[MergeY[,1]]
+
+5. The three data sets, MergeY, MergeMaster and MergeSub, are merged. Then, it is exported as a txt file into the Project folder in the same working directory, named merged.txt. The mean of activities and subjects are created into a separate tidy data set which is exported into the Project folder as txt file; this is named average.txt.
+
+    >- MergeMaster <- cbind(MergeSub, meansdX, MergeY)
+    >- rename(MergerMaster, MergeY= activity)
+    >- str(MergeMaster)
+    >- write.table(MergeMaster, file = "dataf.txt", row.names = F)
+
+6. Finally, creating a new tidy data set:
+
+    >- average <- aggregate(x=MergeMaster, by=list(activities=MergeMaster$MergeY, subj=MergeMaster$subject), FUN=mean)
+    >- average <- average[, !(colnames(average) %in% c("subj", "activity"))]
+    >- str(average)
+    >- write.table(average, "average.txt", row.names = F)
 
 Let's describe how all of every script work and how they are connected here:
